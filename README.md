@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/aquapad-logo.svg" alt="AquaPad" width="440">
+  <img src="docs/aquapad-logo.png" alt="AquaPad" width="320">
 </p>
 
 # AquaPad
