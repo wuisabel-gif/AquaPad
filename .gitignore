@@ -1,0 +1,21 @@
+# Build output
+build/
+**/build/
+.gradle/
+.cxx/
+**/.cxx/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Android / local
+local.properties
+
+# OS / iCloud
+.DS_Store
+*.icloud
+
+# Kotlin daemon cache
+.kotlin/

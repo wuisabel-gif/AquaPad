@@ -1,0 +1,4 @@
+# Runs on the robot (Jetson) alongside a ROS 2 (rclpy) install.
+# rclpy is provided by the ROS 2 distro, not pip — source your ROS 2 setup first.
+websockets>=12.0
+PyYAML>=6.0

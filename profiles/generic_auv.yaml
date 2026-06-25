@@ -1,0 +1,47 @@
+# AquaPad profile — generic AUV template
+# Copy this file, rename it, and point the topics at your robot.
+name: generic_auv
+description: Minimal starting profile for any ROS 2 underwater/ground/air vehicle
+
+network:
+  udp_listen_port: 9870
+  udp_telemetry_port: 9871
+  ws_port: 9880
+  telemetry_rate_hz: 20
+  heartbeat_expected_hz: 50
+
+safety:
+  kill:
+    topic: /kill
+    type: std_msgs/Bool
+    transient_local: true
+  heartbeat_timeout_sec: 0.75   # keep below your robot's command-timeout watchdog
+  auto_clear_kill: false
+
+telemetry:
+  depth:
+    topic: /depth
+    type: sensor_msgs/Range
+    field: range
+  rpy:
+    topic: /imu
+    type: sensor_msgs/Imu
+    extract: quat_to_euler
+  dvl_vel:
+    topic: /odometry
+    type: nav_msgs/Odometry
+    field: twist.twist.linear
+  batt:
+    topic: /battery
+    type: sensor_msgs/BatteryState
+    field: percentage
+
+mission:
+  start:
+    kind: topic                 # simplest case: publish a std_msgs/Bool start flag
+    name: /mission_start
+    type: std_msgs/Bool
+  stop:
+    kind: topic
+    name: /mission_stop
+    type: std_msgs/Bool

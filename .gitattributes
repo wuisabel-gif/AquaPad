@@ -1,0 +1,17 @@
+# AquaPad is a Kotlin project. Keep generated and supporting files out of the
+# GitHub Linguist language stats so Kotlin is reported as the primary language.
+
+# Generated Gradle wrapper
+gradle/wrapper/gradle-wrapper.jar binary linguist-vendored
+gradlew                           linguist-vendored
+gradlew.bat                       linguist-vendored
+
+# Python is on-robot ROS glue + a language-neutral test harness, not the app
+*.py linguist-detectable=false
+
+# Profiles and config are data, not application source
+*.yaml linguist-detectable=false
+
+# Source of record
+*.kt  linguist-language=Kotlin
+*.kts linguist-language=Kotlin

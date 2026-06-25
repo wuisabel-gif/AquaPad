@@ -1,0 +1,57 @@
+# AquaPad profile — Barracuda AUV
+# Real-robot profile. Topics map 1:1 to the Barracuda ROS 2 stack.
+name: barracuda
+description: Barracuda AUV (DualSense-driven, ROS 2 / Jetson)
+
+network:
+  udp_listen_port: 9870      # phone -> bridge: heartbeat + (option A) stick packets
+  udp_telemetry_port: 9871   # bridge -> phone: high-rate telemetry
+  ws_port: 9880              # phone <-> bridge: reliable, acked commands
+  telemetry_rate_hz: 20
+  heartbeat_expected_hz: 50
+
+safety:
+  kill:
+    topic: /barracuda/kill
+    type: std_msgs/Bool
+    transient_local: true    # match the thruster node's QoS so late joiners see kill state
+  # Must be >= phone heartbeat period and < the thruster node's cmd_timeout_sec,
+  # so the phone path latches first and the hardware watchdog stays the backstop.
+  heartbeat_timeout_sec: 0.75
+  auto_clear_kill: false     # heartbeat returning does NOT re-energize; requires explicit arm
+
+telemetry:
+  depth:
+    topic: /barracuda/ping1d/range
+    type: sensor_msgs/Range
+    field: range
+  rpy:
+    topic: /barracuda/estimated_pose
+    type: geometry_msgs/PoseStamped
+    extract: quat_to_euler            # pose.orientation -> [r,p,y]
+    fallback:
+      topic: /barracuda/vectornav/imu
+      type: sensor_msgs/Imu
+      extract: quat_to_euler          # orientation -> [r,p,y]
+  dvl_vel:
+    topic: /barracuda/dvl/odometry
+    type: nav_msgs/Odometry
+    field: twist.twist.linear         # [x,y,z]
+  batt:
+    topic: /barracuda/battery
+    type: sensor_msgs/BatteryState
+    field: percentage                 # 0..1
+
+mission:
+  start:
+    kind: action
+    name: /barracuda/mission
+    accepts_plan: true
+  stop:
+    kind: cancel                      # cancel the active goal
+
+# Option A only (phone in the realtime loop). Omit to keep the phone out of it (recommended).
+setpoint:
+  topic: /barracuda/cmd_vel_setpoint  # body twist INTO the control stack, not raw cmd_thrust
+  type: geometry_msgs/TwistStamped
+  frame_id: barracuda/base_link
