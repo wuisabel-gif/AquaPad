@@ -2,6 +2,11 @@
   <img src="docs/aquapad-logo.png" alt="AquaPad" width="300">
 </p>
 
+<p align="center">
+  <a href="https://github.com/wuisabel-gif/AquaPad/releases/latest"><img src="https://img.shields.io/badge/release-v0.1.0-2DD4BF" alt="Release"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-36D399" alt="License: MIT"></a>
+</p>
+
 Modern field robots are often controlled through a collection of disconnected tools: one
 application for telemetry, another for joystick input, another terminal for logs, and
 separate mechanisms for emergency stop and safety. During testing, operators frequently
