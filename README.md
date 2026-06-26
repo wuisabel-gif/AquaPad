@@ -1,8 +1,6 @@
 <p align="center">
-  <img src="docs/aquapad-logo.png" alt="AquaPad" width="320">
+  <img src="docs/aquapad-logo.png" alt="AquaPad" width="300">
 </p>
-
-# AquaPad
 
 Modern field robots are often controlled through a collection of disconnected tools: one
 application for telemetry, another for joystick input, another terminal for logs, and
